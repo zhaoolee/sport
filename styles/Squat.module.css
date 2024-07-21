@@ -1,0 +1,48 @@
+.container {
+    min-height: 100vh;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .main {
+    padding: 5rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .title {
+    margin: 0;
+    line-height: 1.15;
+    font-size: 4rem;
+    text-align: center;
+  }
+  
+  .counter {
+    font-size: 3rem;
+    margin: 2rem 0;
+  }
+  
+  .beta, .status {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+  }
+  
+  .button {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0051a2;
+  }
