@@ -4,10 +4,7 @@ export default function useAccelerometer() {
   const [support, setSupport] = useState('checking');
   const [permission, setPermission] = useState('pending');
   const [acceleration, setAcceleration] = useState(null);
-  const [sensitivity, setSensitivity] = useState(2);
-  const [isSquatting, setIsSquatting] = useState(false);
-  const [squatCount, setSquatCount] = useState(0);
-  const [lastCountTime, setLastCountTime] = useState(0);
+  const [sensitivity, setSensitivity] = useState(2); // 默认灵敏度为 2
 
   const handleMotion = useCallback((event) => {
     setAcceleration(event.accelerationIncludingGravity);
@@ -35,22 +32,6 @@ export default function useAccelerometer() {
     };
   }, [handleMotion]);
 
-  useEffect(() => {
-    if (acceleration) {
-      const { x, y, z } = acceleration;
-      const totalAcceleration = Math.sqrt(x*x + y*y + z*z);
-      const now = Date.now();
-
-      if (totalAcceleration > 9.8 + sensitivity && !isSquatting && now - lastCountTime > 1000) {
-        setIsSquatting(true);
-      } else if (totalAcceleration < 9.8 - sensitivity && isSquatting) {
-        setIsSquatting(false);
-        setSquatCount(prev => prev + 1);
-        setLastCountTime(now);
-      }
-    }
-  }, [acceleration, sensitivity, isSquatting, lastCountTime]);
-
   const requestPermission = async () => {
     if (typeof DeviceMotionEvent.requestPermission === 'function') {
       try {
@@ -70,14 +51,5 @@ export default function useAccelerometer() {
     setSensitivity(newSensitivity);
   };
 
-  return { 
-    support, 
-    permission, 
-    acceleration, 
-    requestPermission, 
-    sensitivity, 
-    changeSensitivity,
-    squatCount,
-    isSquatting
-  };
+  return { support, permission, acceleration, requestPermission, sensitivity, changeSensitivity };
 }
